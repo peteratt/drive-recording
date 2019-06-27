@@ -12,6 +12,11 @@ import com.stride.driverecording.data.source.LocationMetadataDataSource;
 import com.stride.driverecording.features.drive_recording.DriveRecordingPresenter;
 import com.stride.driverecording.features.drive_recording.DriveRecordingView;
 
+/**
+ * The single activity of our mileage tracker app. It implements DriveRecordingView and has a
+ * reference to DriveRecordingPresenter, which will manage the state of this view, based on the
+ * data it gets from the data sources.
+ */
 public class MainActivity extends AppCompatActivity implements DriveRecordingView {
 
     private DriveRecordingPresenter presenter;
@@ -50,12 +55,12 @@ public class MainActivity extends AppCompatActivity implements DriveRecordingVie
 
     @Override
     public void onTripStarted() {
-        button.setText("I'm done driving");
+        button.setText(R.string.im_done_driving);
     }
 
     @Override
     public void onTripStopped() {
-        button.setText("Start Trip");
+        button.setText(R.string.start_trip);
     }
 
     @Override

@@ -14,6 +14,11 @@ import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
+// TODO(bonus points): there is a lot of repeated code between this one and LocationFixDataSource. Let's refactor it!
+/**
+ * Data source for location metadata. LocationMetadata contains the calculations for the latest
+ * bits. They're needed to render the deduction, distance, time, etc. values on the screen.
+ */
 public class LocationMetadataDataSource {
     private static LocationMetadataDataSource instance;
 
@@ -25,13 +30,20 @@ public class LocationMetadataDataSource {
         return instance;
     }
 
-        private final Subject<LocationMetadata> locationMetadataSubject = PublishSubject.create();
+    private final Subject<LocationMetadata> locationMetadataSubject = PublishSubject.create();
     private final List<LocationMetadataDataSource.Listener> listeners = new ArrayList<>();
     private final Random random = new Random();
+
+    private boolean isStarted = false;
 
     private LocationMetadataDataSource() {}
 
     public void start() {
+        if (isStarted) {
+            return;
+        }
+        isStarted = true;
+
         final Handler handler = new Handler(Looper.getMainLooper());
 
         Runnable update = new Runnable() {
@@ -40,8 +52,9 @@ public class LocationMetadataDataSource {
                 long timestamp = new Date().getTime();
                 double speed = random.nextDouble();
                 float orientation = random.nextFloat();
-                float deduction = random.nextFloat();
-                LocationMetadata fix = new LocationMetadata(timestamp, speed, orientation, deduction, random.nextFloat());
+                float distanceTraveled = random.nextFloat();
+
+                LocationMetadata fix = new LocationMetadata(timestamp, speed, orientation, distanceTraveled);
 
                 locationMetadataSubject.onNext(fix);
 
@@ -54,6 +67,9 @@ public class LocationMetadataDataSource {
         handler.post(update);
     }
 
+    /**
+     * @param listener the callback that will run every second.
+     */
     public void subscribeToUpdates(LocationMetadataDataSource.Listener listener) {
         listeners.add(listener);
     }

@@ -2,18 +2,34 @@ package com.stride.driverecording.data.models;
 
 import java.util.Objects;
 
+/**
+ * Metadata for every location fix.
+ */
 public class LocationMetadata {
+    /**
+     * Timestamp for the location fix.
+     */
     public final long timestamp;
+
+    /**
+     * Speed for the location fix.
+     */
     public final double speed;
+
+    /**
+     * Orientation for the location fix, in degrees.
+     */
     public final float orientation;
-    public final float deductionForWaypoint;
+
+    /**
+     * Distance traveled since the last location fix.
+     */
     public final float distanceTraveled;
 
-    public LocationMetadata(long timestamp, double speed, float orientation, float deductionForWaypoint, float distanceTraveled) {
+    public LocationMetadata(long timestamp, double speed, float orientation, float distanceTraveled) {
         this.timestamp = timestamp;
         this.speed = speed;
         this.orientation = orientation;
-        this.deductionForWaypoint = deductionForWaypoint;
         this.distanceTraveled = distanceTraveled;
     }
 
@@ -25,13 +41,12 @@ public class LocationMetadata {
         return timestamp == that.timestamp &&
                 Double.compare(that.speed, speed) == 0 &&
                 Float.compare(that.orientation, orientation) == 0 &&
-                Float.compare(that.deductionForWaypoint, deductionForWaypoint) == 0 &&
                 Float.compare(that.distanceTraveled, distanceTraveled) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(timestamp, speed, orientation, deductionForWaypoint, distanceTraveled);
+        return Objects.hash(timestamp, speed, orientation, distanceTraveled);
     }
 
     @Override
@@ -40,7 +55,6 @@ public class LocationMetadata {
                 "timestamp=" + timestamp +
                 ", speed=" + speed +
                 ", orientation=" + orientation +
-                ", deductionForWaypoint=" + deductionForWaypoint +
                 ", distanceTraveled=" + distanceTraveled +
                 '}';
     }
