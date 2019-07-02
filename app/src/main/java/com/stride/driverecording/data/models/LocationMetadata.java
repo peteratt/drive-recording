@@ -12,24 +12,13 @@ public class LocationMetadata {
     public final long timestamp;
 
     /**
-     * Speed for the location fix.
-     */
-    public final double speed;
-
-    /**
-     * Orientation for the location fix, in degrees.
-     */
-    public final float orientation;
-
-    /**
-     * Distance traveled since the last location fix.
+     * Distance traveled since the last location fix, in miles. For example, if since the last location
+     * update (a second ago) the user has traveled 0.03 miles, distanceTraveled will be 0.03.
      */
     public final float distanceTraveled;
 
-    public LocationMetadata(long timestamp, double speed, float orientation, float distanceTraveled) {
+    public LocationMetadata(long timestamp, float distanceTraveled) {
         this.timestamp = timestamp;
-        this.speed = speed;
-        this.orientation = orientation;
         this.distanceTraveled = distanceTraveled;
     }
 
@@ -39,22 +28,18 @@ public class LocationMetadata {
         if (o == null || getClass() != o.getClass()) return false;
         LocationMetadata that = (LocationMetadata) o;
         return timestamp == that.timestamp &&
-                Double.compare(that.speed, speed) == 0 &&
-                Float.compare(that.orientation, orientation) == 0 &&
                 Float.compare(that.distanceTraveled, distanceTraveled) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(timestamp, speed, orientation, distanceTraveled);
+        return Objects.hash(timestamp, distanceTraveled);
     }
 
     @Override
     public String toString() {
         return "LocationMetadata{" +
                 "timestamp=" + timestamp +
-                ", speed=" + speed +
-                ", orientation=" + orientation +
                 ", distanceTraveled=" + distanceTraveled +
                 '}';
     }

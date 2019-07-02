@@ -3,7 +3,7 @@ package com.stride.driverecording.data.models;
 import java.util.Objects;
 
 /**
- * A location fix is just a latitude and a longitude.
+ * A location fix is just a latitude and a longitude that represents the user's current location.
  */
 public class LocationFix {
     /**

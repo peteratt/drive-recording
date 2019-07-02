@@ -66,13 +66,21 @@ public class LocationFixDataSource {
         handler.post(update);
     }
 
+    // ################ DO NOT WORRY ABOUT WHAT'S ABOVE #####################
+
     /**
+     * Subscribes to updates via a callback.
+     *
      * @param listener the callback that will run every second.
      */
     public void subscribeToUpdates(Listener listener) {
         listeners.add(listener);
     }
 
+    /**
+     * Subscribes to updates via an RxJava Observable.
+     * @return the observable that will emit values every second.
+     */
     public Observable<LocationFix> getLocationFixes() {
         return locationFixSubject;
     }

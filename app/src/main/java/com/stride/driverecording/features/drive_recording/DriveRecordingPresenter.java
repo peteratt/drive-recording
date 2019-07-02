@@ -1,6 +1,5 @@
 package com.stride.driverecording.features.drive_recording;
 
-import com.stride.driverecording.MainActivity;
 import com.stride.driverecording.data.source.LocationFixDataSource;
 import com.stride.driverecording.data.source.LocationMetadataDataSource;
 
@@ -17,7 +16,7 @@ public class DriveRecordingPresenter {
     }
 
     public void toggleTrip() {
-        // TODO toggle between start and stop
+        // TODO toggle between start and stop. When a trip starts, we should call startTrip below. When it ends, we should call endTrip below.
     }
 
     private void startTrip() {

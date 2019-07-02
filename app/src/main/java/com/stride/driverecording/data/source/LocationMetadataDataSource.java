@@ -50,11 +50,9 @@ public class LocationMetadataDataSource {
             @Override
             public void run() {
                 long timestamp = new Date().getTime();
-                double speed = random.nextDouble();
-                float orientation = random.nextFloat();
                 float distanceTraveled = random.nextFloat();
 
-                LocationMetadata fix = new LocationMetadata(timestamp, speed, orientation, distanceTraveled);
+                LocationMetadata fix = new LocationMetadata(timestamp, distanceTraveled);
 
                 locationMetadataSubject.onNext(fix);
 
@@ -67,13 +65,21 @@ public class LocationMetadataDataSource {
         handler.post(update);
     }
 
+    // ################ DO NOT WORRY ABOUT WHAT'S ABOVE #####################
+
     /**
+     * Subscribes to updates via a callback.
+     *
      * @param listener the callback that will run every second.
      */
     public void subscribeToUpdates(LocationMetadataDataSource.Listener listener) {
         listeners.add(listener);
     }
 
+    /**
+     * Subscribes to updates via an RxJava Observable.
+     * @return the observable that will emit values every second.
+     */
     public Observable<LocationMetadata> getLocationMetadata() {
         return locationMetadataSubject;
     }
